@@ -17,7 +17,6 @@ function addTodo(text, checked = false) {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.classList.add("form-check-input");
-    // checkbox 요소 checked 프로퍼티에 checked 파라미터의 값 (true/false) 할당
     checkbox.checked = checked;
 
     // 텍스트 추가
@@ -29,7 +28,6 @@ function addTodo(text, checked = false) {
     spanElement.style.textDecoration = checked ? "line-through" : "none";
 
     // 체크박스 클릭시 처리
-    // 체크박스의 값이 변경되면, 여기서 정의한 함수가 실행됨 (지연 실행)
     checkbox.addEventListener("change", () => {
         spanElement.style.textDecoration = checkbox.checked ? "line-through" : "none";
 
@@ -45,20 +43,64 @@ function addTodo(text, checked = false) {
     deleteButton.classList.add("btn", "btn-danger", "btn-sm", "ms-2");
     deleteButton.textContent = "삭제";
     deleteButton.addEventListener("click", () => {
-        // localStorage 업데이트
         const todos = loadTodos();
         const index = Array.from(li.parentElement.children).indexOf(li);
         todos.splice(index, 1);
         saveTodos(todos);
-        // 요소 삭제
         li.remove();
+    });
+
+    // 수정 버튼 추가
+    const editButton = document.createElement("button");
+    editButton.classList.add("btn", "btn-warning", "btn-sm", "ms-2");
+    editButton.textContent = "수정";
+
+    // 수정 버튼 동작
+    editButton.addEventListener("click", () => {
+        // 이미 수정 모드인지 확인
+        if (li.querySelector(".edit-input")) return; 
+
+        //수정필드 추가
+        const currentText = spanElement.textContent;
+        const input = document.createElement("input");
+        input.type = "text";
+        input.value = currentText;
+        input.classList.add("form-control", "edit-input", "ms-2");
+
+        const saveButton = document.createElement("button");
+        saveButton.classList.add("btn", "btn-success", "btn-sm", "ms-2");
+        saveButton.textContent = "저장";
+
+        saveButton.addEventListener("click", () => {
+            const newText = input.value.trim();
+            if (newText) {
+                // 텍스트 업데이트
+                spanElement.textContent = newText;
+                spanElement.style.display = "inline";
+                // 수정 필드 제거
+                input.remove();
+                saveButton.remove();
+
+                // localStorage 업데이트
+                const todos = loadTodos();
+                const index = Array.from(li.parentElement.children).indexOf(li);
+                todos[index].text = newText;
+                saveTodos(todos);
+            }
+        });
+
+        spanElement.style.display = "none"; // 기존 텍스트 숨기기
+        li.insertBefore(input, deleteButton); // 수정 필드 추가
+        li.insertBefore(saveButton, deleteButton); // 저장 버튼 추가
     });
 
     li.prepend(checkbox);
     li.append(spanElement);
+    li.append(editButton);
     li.append(deleteButton);
     todoListElement.append(li);
 }
+
 
 // localStorage에서 할일 목록 가져오기
 function loadTodos() {
