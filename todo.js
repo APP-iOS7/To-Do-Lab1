@@ -3,14 +3,24 @@ const todoListElement = document.getElementById("todoList");
 const addButton = document.getElementById("addTodo");
 const todoInput = document.getElementById("todoInput");
 
+function addTodo(text, checked = false){
+    //li 요소 만들기!
+    const li = document.createElement("li");
+    li.classList.add(
+      "list-group-item",
+      "d-flex",
+      "align-items-center",
+      "justify-content-between"
+    );
+  >>>>jin
+
 function addTodo(text) {
-     
     //텍스트 추가
     const spanElement = document.createElement('span');
     spanElement.classList.add('ms-2', 'flex-grow-1');
     spanElement.textContent = text;
 
-    li.append(spanElement);
+    li.append(spanElement); >>>deokwon
   
   // 초기화 함수
 function initialize() {
@@ -26,7 +36,7 @@ function initialize() {
     // 입력창 비우기
     todoInput.value = "";
   });
-}
+} >>>>kdy
 
 // 페이지 로드시 초기화
 document.addEventListener("DOMContentLoaded", initialize);
