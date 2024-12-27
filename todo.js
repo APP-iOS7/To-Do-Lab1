@@ -82,7 +82,7 @@ function initialize() {
     // 새로운 할일 추가 버튼 클릭 이벤트
     addButton.addEventListener("click", () => {
         if (todoInput.value.trim() === ""){ 
-            alert("내용을 입력하시오.")
+            alert("내용을 입력하세요.")
             return; // 빈 입력 방지
         }
 
