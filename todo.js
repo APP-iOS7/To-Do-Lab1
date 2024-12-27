@@ -35,6 +35,18 @@ function addTodo(text, checked = false) {
 
     li.append(spanElement);
     li.append(checkbox);
+    todoListElement.append(li);
+
+    // localStorage에 할일 목록 가져오기
+    function loadTodos() {
+        const savedTodos = localStorage.getItem("todoList");
+        return savedTodos ? JSON.parse(savedTodos) : [];
+    }
+
+    // localStorage에 할일 목록 저장하기
+    function saveTodos(todos) {
+        localStorage.setItem("todoList", JSON.stringify(todos));
+    }
 
     // 초기화 함수
     function initialize() {
