@@ -31,6 +31,12 @@ function addTodo(text, checked = false) {
     //체크박스 클릭시 ㅍ처리
     checkbox.addEventListener("change", () => {
         spanElement.style.textDecoration = checkbox.checked ? "line-through" : "none";
+
+           // localStorage 업데이트
+           const todos = loadTodos();
+           const index = Array.from(li.parentElement.children).indexOf(li);
+           todos[index].checked = checkbox.checked;
+           saveTodos(todos);
     });
 
     li.append(spanElement);
