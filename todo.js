@@ -33,7 +33,7 @@ function addTodo(text, checked = false) {
   // 체크박스의 값이 변경되면, 여기서 정의한 함수가 실행됨 (지연 실행)
     checkbox.addEventListener("change", () => {
      spanElement.style.textDecoration = checkbox.checked ? "line-through" : "none";
-  
+    });
 
     // 삭제 버튼 추가
     const deleteButton = document.createElement("button");
@@ -48,13 +48,14 @@ function addTodo(text, checked = false) {
         // 요소 삭제
         li.remove();
     });
-
+    
+  
 
     li.prepend(checkbox);
     li.append(spanElement);
     li.append(deleteButton);
     todoListElement.append(li);
-}
+  }
     // localStorage에 할일 목록 가져오기
     function loadTodos() {
         const savedTodos = localStorage.getItem("todoList");
@@ -65,6 +66,7 @@ function addTodo(text, checked = false) {
     function saveTodos(todos) {
         localStorage.setItem("todoList", JSON.stringify(todos));
     }
+  
 
 
 
@@ -99,4 +101,3 @@ function addTodo(text, checked = false) {
 
 // 페이지 로드시 초기화
 document.addEventListener("DOMContentLoaded", initialize);
-   
