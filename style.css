@@ -3,3 +3,27 @@ body {
     padding: 0;
     overflow: hidden;
 }
+
+.container-fruid  a{
+    margin: 20px;
+    text-decoration: none;
+    color: white;
+}
+
+#addTodo {
+    background-color: #000;
+    color:#fff;
+}
+
+
+ /*모바일 기기 사이즈 갤럭시 z폴드도 반영*/
+ @media screen and (min-width:280px) and (max-width:430px) {
+    input::placeholder{
+     width: 1200px;
+     overflow: visible;    
+}
+
+    #todoInput {
+        overflow: visible;
+    }
+ }
