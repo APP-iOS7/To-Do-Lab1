@@ -1,43 +1,27 @@
-// DOM 요소들을 미리 저장
-const todoListElement = document.getElementById("todoList");
-const addButton = document.getElementById("addTodo");
-const todoInput = document.getElementById("todoInput");
+function addTodo(text, checked = false) {
 
-function addTodo(text, checked = false){
-    //li 요소 만들기!
+    //li 요소 만들기
     const li = document.createElement("li");
-    li.classList.add(
-      "list-group-item",
-      "d-flex",
-      "align-items-center",
-      "justify-content-between"
-    );
-  >>>>jin
+    li.classList.add("list-group-item", "d-flex", "align-items-center", "justify-content-between");
 
-function addTodo(text) {
-    //텍스트 추가
-    const spanElement = document.createElement('span');
-    spanElement.classList.add('ms-2', 'flex-grow-1');
-    spanElement.textContent = text;
 
-    li.append(spanElement); >>>deokwon
-  
-  // 초기화 함수
-function initialize() {
-};
-  
-  // 새로운 할일 추가 버튼 클릭 이벤트
-  addButton.addEventListener("click", () => {
-    if (todoInput.value.trim() === "") return; // 빈 입력 방지
+    // 삭제 버튼 추가
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("btn", "btn-danger", "btn-sm", "ms-2");
+    deleteButton.textContent = "삭제";
+    deleteButton.addEventListener("click", () => {
+        // localStorage 업데이트
+        const todos = loadTodos();
+        const index = Array.from(li.parentElement.children).indexOf(li);
+        todos.splice(index, 1);
+        saveTodos(todos);
+        // 요소 삭제
+        li.remove();
+    });
 
-    // 새로운 할일 추가
-    addTodo(todoInput.value);
+    li.prepend(checkbox);
+    li.append(spanElement);
+    li.append(deleteButton);
+    todoListElement.append(li);
 
-    // 입력창 비우기
-    todoInput.value = "";
-  });
-} >>>>kdy
-
-// 페이지 로드시 초기화
-document.addEventListener("DOMContentLoaded", initialize);
-
+}
