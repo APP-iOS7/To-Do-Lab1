@@ -19,6 +19,14 @@ function addTodo(text, checked = false) {
     checkbox, classList.add("form-check-input");
     // checkbox 요소 checked 프로퍼티에 checked 파라미터값 (true/false) 할당
     checkbox.checked = checked;
+    
+    const li = document.createElement('li');
+    li.classList.add(
+        'list-group-item',
+        'd-flex',
+        'align-items-center',
+        'justify-content-between'
+    );
 
     //텍스트 추가
     const spanElement = document.createElement("span");
@@ -35,6 +43,13 @@ function addTodo(text, checked = false) {
 
     li.append(spanElement);
     li.append(checkbox);
+    todoListElement.appendChild(li);
+}
+    addButton.addEventListener('click', () => {
+        if (todoInput.value.trim() === '') return;
+
+        addTodo(todoInput.value);
+    });
 
     // 초기화 함수
     function initialize() {
